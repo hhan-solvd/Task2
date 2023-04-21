@@ -26,4 +26,12 @@ public class Finance {
             loanAmount = vehicle.getPrice() - customer.getBudget();
         }
     }
+
+    @Override
+    public String toString() {
+        return "Finance{" +
+                "finance=" + finance +
+                ", loanAmount=" + loanAmount +
+                '}';
+    }
 }
