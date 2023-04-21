@@ -69,4 +69,14 @@ public class Transaction {
             paymentType = "Pay in Full";
         }
     }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "customer=" + customer +
+                ", employee=" + employee +
+                ", vehicle=" + vehicle +
+                ", paymentType='" + paymentType + '\'' +
+                '}';
+    }
 }
