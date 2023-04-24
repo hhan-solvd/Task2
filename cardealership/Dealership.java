@@ -42,7 +42,7 @@ public class Dealership {
 
             // Execute the transaction
             Transaction transaction1 = new Transaction(customer1, employee1, vehicle1, finance1);
-            transaction1.payMethod();
+            transaction1.determinePaymentMethod();
 
             // Print the receipt
             Receipt receipt1 = new Receipt(transaction1);
@@ -75,7 +75,7 @@ public class Dealership {
 
             // Execute the transaction
             Transaction transaction2 = new Transaction(customer2, employee2, vehicle1, finance2);
-            transaction2.payMethod();
+            transaction2.determinePaymentMethod();
 
             // Print the receipt
             Receipt receipt2 = new Receipt(transaction2);
@@ -108,7 +108,7 @@ public class Dealership {
 
             // Execute the transaction
             Transaction transaction3 = new Transaction(customer3, employee2, vehicle3, finance3);
-            transaction3.payMethod();
+            transaction3.determinePaymentMethod();
 
             // Print the receipt
             Receipt receipt3 = new Receipt(transaction3);
