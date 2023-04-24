@@ -3,20 +3,17 @@ package com.solvd.cardealership;
 import java.util.*;
 
 public class VehicleInventory {
-    protected static List<Object> inventory = new ArrayList<>();
+    protected static ArrayList<String> inventory = new ArrayList<>();
 
-    public VehicleInventory() {
-    }
-
-    public List<Object> getInventory() {
+    public List<String> getInventory() {
         return inventory;
     }
 
     public void addVehicle(Vehicle vehicle) {
-        inventory.add(vehicle);
+        inventory.add(vehicle.toString());
     }
 
     public void removeVehicle(Vehicle vehicle) {
-        inventory.remove(vehicle);
+        inventory.remove(vehicle.toString());
     }
 }
