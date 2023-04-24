@@ -39,14 +39,14 @@ public class Employee {
 
     // Add vehicle to inventory
     public void addVehicleToInventory(Vehicle vehicle, VehicleInventory inventory) {
-        if (!inventory.getInventory().contains(vehicle)) {
+        if (!inventory.getInventory().contains(vehicle.toString())) {
             inventory.addVehicle(vehicle);
         }
     }
 
     // Check if the vehicle is available
     public boolean checkVehicleAvailability(Vehicle vehicle, VehicleInventory inventory) {
-        if (inventory.getInventory().contains(vehicle)) {
+        if (inventory.getInventory().contains(vehicle.toString())) {
             return true;
         } else {
             return false;
@@ -55,7 +55,7 @@ public class Employee {
 
     // Remove vehicle from inventory
     public void removeVehicleFromInventory(Vehicle vehicle, VehicleInventory inventory) {
-        if (inventory.getInventory().contains(vehicle)) {
+        if (inventory.getInventory().contains(vehicle.toString())) {
             inventory.removeVehicle(vehicle);
         }
     }
