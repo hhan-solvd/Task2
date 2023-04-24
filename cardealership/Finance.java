@@ -3,7 +3,7 @@ package com.solvd.cardealership;
 public class Finance {
     private Customer customer;
     private Vehicle vehicle;
-    private boolean finance = false; // if the customer needs to finance
+    private boolean needFinance = false; // if the customer needs to finance
     private double loanAmount = 0;
 
     public Finance(Customer buyer, Vehicle vehicleToBuy) {
@@ -12,7 +12,7 @@ public class Finance {
     }
 
     public boolean getFianceStatus() {
-        return finance;
+        return needFinance;
     }
 
     public double getLoanAmount() {
@@ -22,7 +22,7 @@ public class Finance {
     // Check if a customer needs to finance
     public void financeOrNot() {
         if (customer.getBudget() < vehicle.getPrice()) {
-            finance = true;
+            needFinance = true;
             loanAmount = vehicle.getPrice() - customer.getBudget();
         }
     }
@@ -30,7 +30,7 @@ public class Finance {
     @Override
     public String toString() {
         return "Finance{" +
-                "finance=" + finance +
+                "needFinance=" + needFinance +
                 ", loanAmount=" + loanAmount +
                 '}';
     }
