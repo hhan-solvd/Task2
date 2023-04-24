@@ -62,7 +62,7 @@ public class Transaction {
         return customer.getBudget();
     }
 
-    public void payMethod() {
+    public void determinePaymentMethod() {
         if (finance.getFianceStatus()) {
             paymentType = "Finance";
         } else {
