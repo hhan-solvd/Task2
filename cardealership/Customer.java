@@ -2,10 +2,10 @@ package com.solvd.cardealership;
 
 import java.util.Objects;
 
-public class Customer {
-    private String name;
-    private int phone;
-    private double budget;
+public class Customer implements Person{
+    private final String name;
+    private final int phone;
+    private final double budget;
 
     public Customer(String customerName, int customerPhone, double customerBudget) {
         name = customerName;
