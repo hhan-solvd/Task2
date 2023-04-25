@@ -1,8 +1,9 @@
 package com.solvd.cardealership;
 
-public class Finance {
-    private Customer customer;
-    private Vehicle vehicle;
+public class Finance implements PaymentMethod {
+    private final Customer customer;
+    private final Vehicle vehicle;
+    private String paymentMethod;
     private boolean needFinance = false; // if the customer needs to finance
     private double loanAmount = 0;
 
@@ -11,8 +12,8 @@ public class Finance {
         vehicle = vehicleToBuy;
     }
 
-    public boolean getFianceStatus() {
-        return needFinance;
+    public String getPaymentMethod() {
+        return paymentMethod;
     }
 
     public double getLoanAmount() {
@@ -20,10 +21,13 @@ public class Finance {
     }
 
     // Check if a customer needs to finance
-    public void financeOrNot() {
+    public void determinePaymentMethod() {
         if (customer.getBudget() < vehicle.getPrice()) {
+            paymentMethod = "Finance";
             needFinance = true;
             loanAmount = vehicle.getPrice() - customer.getBudget();
+        } else {
+            paymentMethod = "Pay in Full";
         }
     }
 
