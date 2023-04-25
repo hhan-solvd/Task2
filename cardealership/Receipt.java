@@ -1,7 +1,7 @@
 package com.solvd.cardealership;
 
 public class Receipt {
-    private Transaction transaction;
+    private final Transaction transaction;
 
     public Receipt(Transaction trans) {
         transaction = trans;
