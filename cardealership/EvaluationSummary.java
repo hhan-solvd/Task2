@@ -4,8 +4,8 @@ package com.solvd.cardealership;
  * The ServiceFeedback class prints the summary of the customer's evaluation.
  */
 public class EvaluationSummary {
-    private Transaction transaction;
-    private CustomerEvaluation customerEvaluation;
+    private final Transaction transaction;
+    private final CustomerEvaluation customerEvaluation;
 
     public EvaluationSummary(Transaction trans, CustomerEvaluation evaluation) {
         transaction = trans;
