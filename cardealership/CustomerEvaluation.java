@@ -1,9 +1,9 @@
 package com.solvd.cardealership;
 
-public class CustomerEvaluation {
-    private Employee employee;
-    private int rating;      // Customer's rating to employee with integer 0 to 5
-    private String comment;  // Customer's comments about the service
+public class CustomerEvaluation implements Evaluation {
+    private final Employee employee;
+    private final int rating;      // Customer's rating to employee with integer 0 to 5
+    private final String comment;  // Customer's comments about the service
 
     public CustomerEvaluation(Employee emp, int customerRating,
                               String customerComment) {
