@@ -1,7 +1,7 @@
 package com.solvd.cardealership;
 
 public class GasVehicle extends Vehicle {
-    private double range;
+    protected double range;
 
     public GasVehicle(String vehicleModel, String vehicleColor, int vehicleYear,
                       double vehiclePrice, double vehicleRange) {
@@ -9,7 +9,10 @@ public class GasVehicle extends Vehicle {
         range = vehicleRange;
     }
 
-    public double getRange() {
-        return range;
+    @Override
+    public String getOtherInfo() {
+        return "GasVehicle{" +
+                "range=" + range +
+                '}';
     }
 }

@@ -1,7 +1,7 @@
 package com.solvd.cardealership;
 
 public class ElectricVehicle extends Vehicle {
-    private int batteryLife; // years of battery life
+    protected int batteryLife; // years of battery life
 
     public ElectricVehicle(String vehicleModel, String vehicleColor, int vehicleYear,
                            double vehiclePrice, int vehicleBatteryLife) {
@@ -9,7 +9,10 @@ public class ElectricVehicle extends Vehicle {
         batteryLife = vehicleBatteryLife;
     }
 
-    public int getBatteryLife() {
-        return batteryLife;
+    @Override
+    public String getOtherInfo() {
+        return "ElectricVehicle{" +
+                "batteryLife=" + batteryLife +
+                '}';
     }
 }

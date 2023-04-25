@@ -62,11 +62,21 @@ public class Transaction {
         return customer.getBudget();
     }
 
-    public void payMethod() {
+    public void determinePaymentMethod() {
         if (finance.getFianceStatus()) {
             paymentType = "Finance";
         } else {
             paymentType = "Pay in Full";
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "customer=" + customer +
+                ", employee=" + employee +
+                ", vehicle=" + vehicle +
+                ", paymentType='" + paymentType + '\'' +
+                '}';
     }
 }
