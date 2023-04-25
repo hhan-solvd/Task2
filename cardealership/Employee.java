@@ -1,10 +1,10 @@
 package com.solvd.cardealership;
 
-import java.util.Objects;
+import java.util.*;
 
-public class Employee {
-    private String name;
-    private int id;
+public class Employee implements Person, Worker {
+    private final String name;
+    private final int id;
     private double overallRating = 0; // tbe employee's overall rating with 0 to 5
     private int ratingCounter = 0;    // times that the employee has been rated
 
@@ -39,23 +39,21 @@ public class Employee {
 
     // Add vehicle to inventory
     public void addVehicleToInventory(Vehicle vehicle, VehicleInventory inventory) {
-        if (!inventory.getInventory().contains(vehicle.toString())) {
+        String vehicleDetail = vehicle.toString();
+        if (!inventory.getInventory().contains(vehicleDetail)) {
             inventory.addVehicle(vehicle);
         }
     }
 
     // Check if the vehicle is available
     public boolean checkVehicleAvailability(Vehicle vehicle, VehicleInventory inventory) {
-        if (inventory.getInventory().contains(vehicle.toString())) {
-            return true;
-        } else {
-            return false;
-        }
+        return inventory.getInventory().contains(vehicle.toString());
     }
 
     // Remove vehicle from inventory
     public void removeVehicleFromInventory(Vehicle vehicle, VehicleInventory inventory) {
-        if (inventory.getInventory().contains(vehicle.toString())) {
+        String vehicleDetail = vehicle.toString();
+        if (inventory.getInventory().contains(vehicleDetail)) {
             inventory.removeVehicle(vehicle);
         }
     }
