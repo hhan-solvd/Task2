@@ -2,7 +2,7 @@ package com.solvd.cardealership;
 
 import java.util.*;
 
-public class VehicleInventory {
+public class VehicleInventory implements Inventory {
     protected static ArrayList<String> inventory = new ArrayList<>();
 
     public List<String> getInventory() {
