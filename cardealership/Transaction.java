@@ -1,11 +1,10 @@
 package com.solvd.cardealership;
 
 public class Transaction {
-    private Customer customer;
-    private Employee employee;
-    private Vehicle vehicle;
-    private Finance finance;
-    private String paymentType;
+    private final Customer customer;
+    private final Employee employee;
+    private final Vehicle vehicle;
+    private final Finance finance;
 
     public Transaction(Customer buyer, Employee staff, Vehicle car, Finance loan) {
         customer = buyer;
@@ -51,7 +50,7 @@ public class Transaction {
     }
 
     public String getPaymentType() {
-        return paymentType;
+        return finance.getPaymentMethod();
     }
 
     public double getLoanAmount() {
@@ -62,21 +61,13 @@ public class Transaction {
         return customer.getBudget();
     }
 
-    public void determinePaymentMethod() {
-        if (finance.getFianceStatus()) {
-            paymentType = "Finance";
-        } else {
-            paymentType = "Pay in Full";
-        }
-    }
-
     @Override
     public String toString() {
         return "Transaction{" +
                 "customer=" + customer +
                 ", employee=" + employee +
                 ", vehicle=" + vehicle +
-                ", paymentType='" + paymentType + '\'' +
+                ", paymentType='" + finance.getPaymentMethod() + '\'' +
                 '}';
     }
 }
