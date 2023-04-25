@@ -38,11 +38,10 @@ public class Dealership {
         } else {
             // Check if this customer needs to finance to buy this vehicle
             Finance finance1 = new Finance(customer1, vehicle1);
-            finance1.financeOrNot();
+            finance1.determinePaymentMethod();
 
             // Execute the transaction
             Transaction transaction1 = new Transaction(customer1, employee1, vehicle1, finance1);
-            transaction1.determinePaymentMethod();
 
             // Print the receipt
             Receipt receipt1 = new Receipt(transaction1);
@@ -71,11 +70,10 @@ public class Dealership {
         } else {
             // Check if this customer needs to finance to buy this vehicle
             Finance finance2 = new Finance(customer2, vehicle1);
-            finance2.financeOrNot();
+            finance2.determinePaymentMethod();
 
             // Execute the transaction
             Transaction transaction2 = new Transaction(customer2, employee2, vehicle1, finance2);
-            transaction2.determinePaymentMethod();
 
             // Print the receipt
             Receipt receipt2 = new Receipt(transaction2);
@@ -104,11 +102,10 @@ public class Dealership {
         } else {
             // Check if this customer needs to finance to buy this vehicle
             Finance finance3 = new Finance(customer3, vehicle3);
-            finance3.financeOrNot();
+            finance3.determinePaymentMethod();
 
             // Execute the transaction
             Transaction transaction3 = new Transaction(customer3, employee2, vehicle3, finance3);
-            transaction3.determinePaymentMethod();
 
             // Print the receipt
             Receipt receipt3 = new Receipt(transaction3);
