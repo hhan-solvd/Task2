@@ -2,7 +2,7 @@ package com.solvd.cardealership;
 
 import java.util.Objects;
 
-public abstract class Vehicle {
+public abstract class Vehicle implements Transportation {
     protected String model;
     protected String color;
     protected int year;
