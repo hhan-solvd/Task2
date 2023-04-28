@@ -1,5 +1,5 @@
 package com.solvd.cardealership;
 
-public interface Person {
+public interface IPerson {
     String getName();
 }
