@@ -2,7 +2,7 @@ package com.solvd.cardealership;
 
 import java.util.List;
 
-public interface Inventory {
+public interface IInventory {
     List<String> getInventory();
 
     void addVehicle(Vehicle vehicle);
