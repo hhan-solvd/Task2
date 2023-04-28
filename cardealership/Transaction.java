@@ -1,10 +1,10 @@
 package com.solvd.cardealership;
 
 public class Transaction {
-    private final Customer customer;
-    private final Employee employee;
-    private final Vehicle vehicle;
-    private final Finance finance;
+    private Customer customer;
+    private Employee employee;
+    private Vehicle vehicle;
+    private Finance finance;
 
     public Transaction(Customer buyer, Employee staff, Vehicle car, Finance loan) {
         customer = buyer;
