@@ -1,26 +1,29 @@
 package com.solvd.cardealership;
 
-public class Receipt {
-    private final Transaction transaction;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+public final class Receipt {
+    private static final Logger LOGGER = LogManager.getLogger(Receipt.class);
+    private Transaction transaction;
 
     public Receipt(Transaction trans) {
         transaction = trans;
     }
 
     public void printReceipt() {
-        System.out.println();
-        System.out.println("AAA Dealership Receipt");
-        System.out.println("-----------------------------");
-        System.out.println("Customer: " + transaction.getCustomerName());
-        System.out.println("Employee: " + transaction.getEmployeeName());
-        System.out.println("Vehicle: " + transaction.getVehicleModel() + " " +
+        LOGGER.info("AAA Dealership Receipt");
+        LOGGER.info("-----------------------------");
+        LOGGER.info("Customer: " + transaction.getCustomerName());
+        LOGGER.info("Employee: " + transaction.getEmployeeName());
+        LOGGER.info("Vehicle: " + transaction.getVehicleModel() + " " +
                 transaction.getVehicleYear() + " " + transaction.getVehicleColor());
-        System.out.println("Price: " + transaction.getVehiclePrice());
-        System.out.println("Payment type: " + transaction.getPaymentType());
+        LOGGER.info("Price: " + transaction.getVehiclePrice());
+        LOGGER.info("Payment type: " + transaction.getPaymentType());
 
         if (transaction.getLoanAmount() > 0) {
-            System.out.println("Paid Amount: " + transaction.getCustomerBudget());
-            System.out.println("Loan Amount: " + transaction.getLoanAmount());
+            LOGGER.info("Paid Amount: " + transaction.getCustomerBudget());
+            LOGGER.info("Loan Amount: " + transaction.getLoanAmount());
         }
     }
 }
