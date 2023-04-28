@@ -1,6 +1,6 @@
 package com.solvd.cardealership;
 
-public interface Transportation {
+public interface ITransportation {
     String getModel();
 
     int getYear();
