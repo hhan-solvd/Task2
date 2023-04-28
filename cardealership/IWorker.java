@@ -1,6 +1,6 @@
 package com.solvd.cardealership;
 
-public interface Worker {
+public interface IWorker {
     // Add vehicle to inventory
     void addVehicleToInventory(Vehicle vehicle, VehicleInventory inventory);
 
