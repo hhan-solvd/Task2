@@ -1,6 +1,6 @@
 package com.solvd.cardealership;
 
-public interface Evaluation {
+public interface IEvaluation {
     int getRating();
 
     String getComment();
