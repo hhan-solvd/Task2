@@ -1,6 +1,6 @@
 package com.solvd.cardealership;
 
-public interface PaymentMethod {
+public interface IPaymentMethod {
     void determinePaymentMethod();
 
     String getPaymentMethod();
