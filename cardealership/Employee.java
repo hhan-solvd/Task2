@@ -1,14 +1,26 @@
 package com.solvd.cardealership;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.*;
 
-public class Employee implements Person, Worker {
-    private final String name;
-    private final int id;
+public class Employee implements IPerson, IWorker {
+    private static final Logger LOGGER = LogManager.getLogger(Employee.class);
+    private String name;
+    private int id;
     private double overallRating = 0; // tbe employee's overall rating with 0 to 5
     private int ratingCounter = 0;    // times that the employee has been rated
 
-    public Employee(String employeeName, int employeeId) {
+    public Employee(String employeeName, int employeeId) throws EmptyStringException {
+        if (employeeName.isEmpty()) {
+            throw new EmptyStringException("Employee's name can not be empty!");
+        }
+
+        if (employeeId < 0) {
+            throw new NegativeNumberException("employee ID must be a non-negative integer!");
+        }
+
         name = employeeName;
         id = employeeId;
     }
@@ -39,9 +51,10 @@ public class Employee implements Person, Worker {
 
     // Add vehicle to inventory
     public void addVehicleToInventory(Vehicle vehicle, VehicleInventory inventory) {
-        String vehicleDetail = vehicle.toString();
-        if (!inventory.getInventory().contains(vehicleDetail)) {
+        try {
             inventory.addVehicle(vehicle);
+        } catch (DuplicateVehicleException e) {
+            LOGGER.warn(vehicle.toString() + " has already been in inventory!");
         }
     }
 
@@ -52,9 +65,10 @@ public class Employee implements Person, Worker {
 
     // Remove vehicle from inventory
     public void removeVehicleFromInventory(Vehicle vehicle, VehicleInventory inventory) {
-        String vehicleDetail = vehicle.toString();
-        if (inventory.getInventory().contains(vehicleDetail)) {
+        try {
             inventory.removeVehicle(vehicle);
+        } catch (VehicleNotFoundException e) {
+            LOGGER.warn(vehicle.toString() + " is not found in inventory!");
         }
     }
 
