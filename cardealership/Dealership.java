@@ -1,10 +1,15 @@
 package com.solvd.cardealership;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * The Dealership class instantiates objects of classes from com.solvd.cardealership package.
  */
 public class Dealership {
-    public static void main(String[] args) {
+    private static final Logger LOGGER = LogManager.getLogger(Dealership.class);
+
+    public static void main(final String... args) throws EmptyStringException {
         VehicleInventory inventory = new VehicleInventory();
         Employee employee1 = new Employee("Lucy", 678);
         Employee employee2 = new Employee("Alan", 345);
@@ -33,8 +38,8 @@ public class Dealership {
          */
         boolean result1 = employee1.checkVehicleAvailability(vehicle1, inventory);
         if (!result1) {
-            System.out.println("-----------------------------");
-            System.out.println("This vehicle is not available.");
+            LOGGER.info("-----------------------------");
+            LOGGER.info("This vehicle is not available.");
         } else {
             // Check if this customer needs to finance to buy this vehicle
             Finance finance1 = new Finance(customer1, vehicle1);
@@ -65,8 +70,8 @@ public class Dealership {
          */
         boolean result2 = employee2.checkVehicleAvailability(vehicle1, inventory);
         if (!result2) {
-            System.out.println("-----------------------------");
-            System.out.println("This vehicle is not available.");
+            LOGGER.info("-----------------------------");
+            LOGGER.info("This vehicle is not available.");
         } else {
             // Check if this customer needs to finance to buy this vehicle
             Finance finance2 = new Finance(customer2, vehicle1);
@@ -97,8 +102,8 @@ public class Dealership {
          */
         boolean result3 = employee2.checkVehicleAvailability(vehicle3, inventory);
         if (!result3) {
-            System.out.println("-----------------------------");
-            System.out.println("This vehicle is not available.");
+            LOGGER.info("-----------------------------");
+            LOGGER.info("This vehicle is not available.");
         } else {
             // Check if this customer needs to finance to buy this vehicle
             Finance finance3 = new Finance(customer3, vehicle3);
@@ -123,5 +128,8 @@ public class Dealership {
             EvaluationSummary feedback3 = new EvaluationSummary(transaction3, evaluation3);
             feedback3.printFeedback();
         }
+
+        // Print the vehicles in the inventory
+        VehicleInventory.printVehicleInventory();
     }
 }
