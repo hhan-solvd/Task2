@@ -1,8 +1,8 @@
 package com.solvd.cardealership;
 
-public class Finance implements PaymentMethod {
-    private final Customer customer;
-    private final Vehicle vehicle;
+public class Finance implements IPaymentMethod {
+    private Customer customer;
+    private Vehicle vehicle;
     private String paymentMethod;
     private boolean needFinance = false; // if the customer needs to finance
     private double loanAmount = 0;
