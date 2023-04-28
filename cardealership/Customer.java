@@ -2,12 +2,25 @@ package com.solvd.cardealership;
 
 import java.util.Objects;
 
-public class Customer implements Person{
-    private final String name;
-    private final int phone;
-    private final double budget;
+public class Customer implements IPerson {
+    private String name;
+    private int phone;
+    private double budget;
 
-    public Customer(String customerName, int customerPhone, double customerBudget) {
+    public Customer(String customerName, int customerPhone, double customerBudget)
+            throws EmptyStringException {
+        if (customerName.isEmpty()) {
+            throw new EmptyStringException("Customer's name can not be empty!");
+        }
+
+        if (customerPhone < 0) {
+            throw new NegativeNumberException("Phone number must be a non-negative integer!");
+        }
+
+        if (customerBudget < 0) {
+            throw new NegativeNumberException("Budget must be a non-negative number!");
+        }
+
         name = customerName;
         phone = customerPhone;
         budget = customerBudget;
