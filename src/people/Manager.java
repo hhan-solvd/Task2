@@ -1,10 +1,15 @@
 package people;
 
-import collections.EmployeeList;
 import exceptions.EmptyStringException;
 import exceptions.NegativeNumberException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Manager {
+    private static final Logger LOGGER = LogManager.getLogger(Employee.class);
     private String name;
     private int id;
 
@@ -21,7 +26,17 @@ public class Manager {
         id = managerId;
     }
 
-    public void addEmployeeToList(Employee employee, EmployeeList employeeList) {
-        employeeList.addEmployee(employee);
+    public void addEmployeeToList(Employee employee, ArrayList<String> employeeList) {
+        employeeList.add(employee.toString());
+    }
+
+    public void printAList(ArrayList<String> arrayList) {
+        for (String object : arrayList) {
+            LOGGER.info(object);
+        }
+    }
+
+    public void printAMap(HashMap<Integer, ArrayList<String>> hashMap) {
+        LOGGER.info(hashMap);
     }
 }
