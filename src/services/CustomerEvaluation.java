@@ -8,7 +8,9 @@ import exceptions.DivisionByZeroException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import people.Employee;
-import collections.EvaluationMap;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CustomerEvaluation implements IEvaluation {
     private static final Logger LOGGER = LogManager.getLogger(Employee.class);
@@ -64,13 +66,20 @@ public class CustomerEvaluation implements IEvaluation {
         }
     }
 
-    public void addEvaluationToMap(EvaluationMap evaluationList) {
-        evaluationList.addEvaluation(employee.getId(), toString());
+    public void addEvaluationToMap(HashMap<Integer, ArrayList<String>> evaluationMap) {
+        Integer key = employee.getId();
+        if (evaluationMap.containsKey(key)) {
+            evaluationMap.get(key).add(toString());
+        } else {
+            ArrayList<String> valueList = new ArrayList<>();
+            valueList.add(toString());
+            evaluationMap.put(key, valueList);
+        }
     }
 
     @Override
     public String toString() {
-        return "employeeName=" + employee.getName() +
+        return "{" + "employeeName=" + employee.getName() +
                 ", rating=" + rating +
                 ", comment='" + comment + '\'' +
                 '}';
