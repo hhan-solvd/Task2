@@ -2,10 +2,12 @@ import exceptions.EmptyStringException;
 import vehicles.*;
 import people.*;
 import services.*;
-import collections.*;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * The Dealership class instantiates objects of classes from exceptions, interfaces, people,
@@ -16,10 +18,10 @@ public class Dealership {
 
     public static void main(final String... args) throws EmptyStringException {
         VehicleInventory inventory = new VehicleInventory();
-        CustomerList customerList = new CustomerList();
-        EmployeeList employeeList = new EmployeeList();
-        TransactionList transactionList = new TransactionList();
-        EvaluationMap evaluationMap = new EvaluationMap();
+        ArrayList<String> customerList = new ArrayList<>();
+        ArrayList<String> employeeList = new ArrayList<>();
+        ArrayList<String> transactionList = new ArrayList<>();
+        HashMap<Integer, ArrayList<String>> evaluationMap = new HashMap<>();
 
         Manager manager = new Manager("Alex", 776);
 
@@ -74,7 +76,8 @@ public class Dealership {
             Receipt receipt1 = new Receipt(transaction1);
             receipt1.printReceipt();
 
-            // Employee removes this vehicle from the inventory
+            // Employee adds this vehicle to customer's purchase history and removes it from the inventory
+            employee1.addVehicleToCustomerPurchaseHistory(customer1, vehicle1);
             employee1.removeVehicleFromInventory(vehicle1, inventory);
 
             // Customer evaluates the service
@@ -108,7 +111,8 @@ public class Dealership {
             Receipt receipt2 = new Receipt(transaction2);
             receipt2.printReceipt();
 
-            // Employee removes this vehicle from the inventory
+            // Employee adds this vehicle to customer's purchase history and removes it from the inventory
+            employee2.addVehicleToCustomerPurchaseHistory(customer2, vehicle1);
             employee2.removeVehicleFromInventory(vehicle1, inventory);
 
             // Customer evaluates the service
@@ -142,7 +146,8 @@ public class Dealership {
             Receipt receipt3 = new Receipt(transaction3);
             receipt3.printReceipt();
 
-            // Employee removes this vehicle from the inventory
+            // Employee adds this vehicle to customer's purchase history and removes it from the inventory
+            employee2.addVehicleToCustomerPurchaseHistory(customer3, vehicle3);
             employee2.removeVehicleFromInventory(vehicle3, inventory);
 
             // Customer evaluates the service
@@ -158,9 +163,9 @@ public class Dealership {
 
         // Print the collections
         VehicleInventory.printVehicleInventory();
-        employeeList.printEmployeeList();
-        customerList.printCustomerList();
-        transactionList.printTransactionList();
-        evaluationMap.printEvaluationMap();
+        manager.printAList(employeeList);
+        manager.printAList(customerList);
+        manager.printAList(transactionList);
+        manager.printAMap(evaluationMap);
     }
 }
