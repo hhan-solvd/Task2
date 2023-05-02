@@ -2,14 +2,29 @@ package com.solvd.cardealership;
 
 import java.util.Objects;
 
-public abstract class Vehicle {
+public abstract class Vehicle implements ITransportation {
     protected String model;
     protected String color;
     protected int year;
     protected double price;
 
     public Vehicle(String vehicleModel, String vehicleColor,
-                   int vehicleYear, double vehiclePrice) {
+                   int vehicleYear, double vehiclePrice) throws EmptyStringException {
+        if (vehicleModel.isEmpty()) {
+            throw new EmptyStringException("Vehicle's model can not be empty!");
+        }
+
+        if (vehicleColor.isEmpty()) {
+            throw new EmptyStringException("Vehicle's color can not be empty!");
+        }
+
+        if (vehicleYear < 0) {
+            throw new NegativeNumberException("Vehicle's year must be a non-negative integer!");
+        }
+
+        if (vehiclePrice < 0) {
+            throw new NegativeNumberException("Vehicle's price must be a non-negative number!");
+        }
         model = vehicleModel;
         color = vehicleColor;
         year = vehicleYear;

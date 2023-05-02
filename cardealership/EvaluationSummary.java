@@ -1,9 +1,13 @@
 package com.solvd.cardealership;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * The ServiceFeedback class prints the summary of the customer's evaluation.
  */
-public class EvaluationSummary {
+public final class EvaluationSummary {
+    private static final Logger LOGGER = LogManager.getLogger(EvaluationSummary.class);
     private Transaction transaction;
     private CustomerEvaluation customerEvaluation;
 
@@ -13,15 +17,14 @@ public class EvaluationSummary {
     }
 
     public void printFeedback() {
-        System.out.println();
-        System.out.println("Service Feedback");
-        System.out.println("-----------------------------");
-        System.out.println("Customer: " + transaction.getCustomerName());
-        System.out.println("Customer Phone: " + transaction.getCustomerPhone());
-        System.out.println("Employee: " + transaction.getEmployeeName());
-        System.out.println("Employee ID: " + transaction.getEmployeeId());
-        System.out.println("Service rating (0-5): " + customerEvaluation.getRating());
-        System.out.println("Comments: " + customerEvaluation.getComment());
-        System.out.println("Employee overall rating: " + transaction.getEmployeeRating());
+        LOGGER.info("Service Feedback");
+        LOGGER.info("-----------------------------");
+        LOGGER.info("Customer: " + transaction.getCustomerName());
+        LOGGER.info("Customer Phone: " + transaction.getCustomerPhone());
+        LOGGER.info("Employee: " + transaction.getEmployeeName());
+        LOGGER.info("Employee ID: " + transaction.getEmployeeId());
+        LOGGER.info("Service rating (0-5): " + customerEvaluation.getRating());
+        LOGGER.info("Comments: " + customerEvaluation.getComment());
+        LOGGER.info("Employee overall rating: " + transaction.getEmployeeRating());
     }
 }
