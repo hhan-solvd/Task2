@@ -1,6 +1,5 @@
 package people;
 
-import collections.TransactionList;
 import interfaces.IPerson;
 import interfaces.IWorker;
 import exceptions.EmptyStringException;
@@ -9,7 +8,6 @@ import exceptions.DuplicateVehicleException;
 import exceptions.VehicleNotFoundException;
 import vehicles.Vehicle;
 import vehicles.VehicleInventory;
-import collections.CustomerList;
 import services.Transaction;
 
 import org.apache.logging.log4j.LogManager;
@@ -92,12 +90,16 @@ public class Employee implements IPerson, IWorker {
         }
     }
 
-    public void addCustomerToList(Customer customer, CustomerList customerList) {
-        customerList.addCustomer(customer);
+    public void addCustomerToList(Customer customer, ArrayList<String> customerList) {
+        customerList.add(customer.toString());
     }
 
-    public void addTransactionToList(Transaction transaction, TransactionList transactionList) {
-        transactionList.addTransaction(transaction);
+    public void addTransactionToList(Transaction transaction, ArrayList<String> transactionList) {
+        transactionList.add(transaction.toString());
+    }
+
+    public void addVehicleToCustomerPurchaseHistory(Customer customer, Vehicle vehicle) {
+        customer.setPurchasedVehicles(vehicle);
     }
 
     @Override
