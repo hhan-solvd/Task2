@@ -1,4 +1,7 @@
-package com.solvd.cardealership;
+package vehicles;
+
+import exceptions.EmptyStringException;
+import exceptions.NegativeNumberException;
 
 public class GasVehicle extends Vehicle {
     protected double range;

@@ -1,4 +1,9 @@
-package com.solvd.cardealership;
+package services;
+
+import interfaces.IPaymentMethod;
+import people.Customer;
+import vehicles.Vehicle;
+
 
 public class Finance implements IPaymentMethod {
     private Customer customer;

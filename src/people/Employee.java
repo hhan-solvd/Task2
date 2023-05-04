@@ -1,4 +1,14 @@
-package com.solvd.cardealership;
+package people;
+
+import interfaces.IPerson;
+import interfaces.IWorker;
+import exceptions.EmptyStringException;
+import exceptions.NegativeNumberException;
+import exceptions.DuplicateVehicleException;
+import exceptions.VehicleNotFoundException;
+import vehicles.Vehicle;
+import vehicles.VehicleInventory;
+import services.Transaction;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,7 +44,11 @@ public class Employee implements IPerson, IWorker {
     }
 
     public void setRating(double employeeRating) {
-        overallRating = employeeRating;
+        if (employeeRating >= 0) {
+            overallRating = employeeRating;
+        } else {
+            throw new NegativeNumberException("Rating can not be a negative number!");
+        }
     }
 
     public double getRating() {
@@ -42,7 +56,11 @@ public class Employee implements IPerson, IWorker {
     }
 
     public void setCounter(int value) {
-        ratingCounter = value;
+        if (ratingCounter >= 0) {
+            ratingCounter = value;
+        } else {
+            throw new NegativeNumberException("Rating counter can not be a negative integer!");
+        }
     }
 
     public int getCounter() {
@@ -60,7 +78,7 @@ public class Employee implements IPerson, IWorker {
 
     // Check if the vehicle is available
     public boolean checkVehicleAvailability(Vehicle vehicle, VehicleInventory inventory) {
-        return inventory.getInventory().contains(vehicle.toString());
+        return inventory.getInventory().findNode(vehicle.toString());
     }
 
     // Remove vehicle from inventory
@@ -70,6 +88,18 @@ public class Employee implements IPerson, IWorker {
         } catch (VehicleNotFoundException e) {
             LOGGER.warn(vehicle.toString() + " is not found in inventory!");
         }
+    }
+
+    public void addCustomerToList(Customer customer, ArrayList<String> customerList) {
+        customerList.add(customer.toString());
+    }
+
+    public void addTransactionToList(Transaction transaction, ArrayList<String> transactionList) {
+        transactionList.add(transaction.toString());
+    }
+
+    public void addVehicleToCustomerPurchaseHistory(Customer customer, Vehicle vehicle) {
+        customer.setPurchasedVehicles(vehicle);
     }
 
     @Override

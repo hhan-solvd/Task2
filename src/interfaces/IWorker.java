@@ -1,4 +1,7 @@
-package com.solvd.cardealership;
+package interfaces;
+
+import vehicles.Vehicle;
+import vehicles.VehicleInventory;
 
 public interface IWorker {
     // Add vehicle to inventory

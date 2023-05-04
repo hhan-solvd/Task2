@@ -1,11 +1,18 @@
-package com.solvd.cardealership;
+package people;
 
+import interfaces.IPerson;
+import vehicles.Vehicle;
+import exceptions.EmptyStringException;
+import exceptions.NegativeNumberException;
+
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Customer implements IPerson {
     private String name;
     private int phone;
     private double budget;
+    ArrayList<Vehicle> purchasedVehicles = new ArrayList<>();
 
     public Customer(String customerName, int customerPhone, double customerBudget)
             throws EmptyStringException {
@@ -36,6 +43,10 @@ public class Customer implements IPerson {
 
     public double getBudget() {
         return budget;
+    }
+
+    public void setPurchasedVehicles(Vehicle vehicle) {
+        purchasedVehicles.add(vehicle);
     }
 
     @Override

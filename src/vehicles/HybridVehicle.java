@@ -1,4 +1,6 @@
-package com.solvd.cardealership;
+package vehicles;
+
+import exceptions.EmptyStringException;
 
 public class HybridVehicle extends Vehicle {
     protected boolean plugin; // if it is a plug-in hybrid vehicle

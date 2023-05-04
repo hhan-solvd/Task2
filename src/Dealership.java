@@ -1,16 +1,30 @@
-package com.solvd.cardealership;
+import exceptions.EmptyStringException;
+import vehicles.*;
+import people.*;
+import services.*;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
- * The Dealership class instantiates objects of classes from com.solvd.cardealership package.
+ * The Dealership class instantiates objects of classes from exceptions, interfaces, people,
+ * services, collections and vehicles package.
  */
 public class Dealership {
     private static final Logger LOGGER = LogManager.getLogger(Dealership.class);
 
     public static void main(final String... args) throws EmptyStringException {
         VehicleInventory inventory = new VehicleInventory();
+        ArrayList<String> customerList = new ArrayList<>();
+        ArrayList<String> employeeList = new ArrayList<>();
+        ArrayList<String> transactionList = new ArrayList<>();
+        HashMap<Integer, ArrayList<String>> evaluationMap = new HashMap<>();
+
+        Manager manager = new Manager("Alex", 776);
+
         Employee employee1 = new Employee("Lucy", 678);
         Employee employee2 = new Employee("Alan", 345);
 
@@ -28,10 +42,19 @@ public class Dealership {
         GasVehicle vehicle3 = new GasVehicle("Nissan Sentra", "blue",
                 2022, 22000, 118);
 
+        // Manager adds employee to employee list
+        manager.addEmployeeToList(employee1, employeeList);
+        manager.addEmployeeToList(employee2, employeeList);
+
         // Employee adds vehicle to the inventory
         employee1.addVehicleToInventory(vehicle1, inventory);
         employee1.addVehicleToInventory(vehicle2, inventory);
         employee2.addVehicleToInventory(vehicle3, inventory);
+
+        // Employee adds customer to the customer list
+        employee1.addCustomerToList(customer1, customerList);
+        employee1.addCustomerToList(customer2, customerList);
+        employee2.addCustomerToList(customer3, customerList);
 
         /*
          * Customer1 buys vehicle1 from employee1.
@@ -47,18 +70,21 @@ public class Dealership {
 
             // Execute the transaction
             Transaction transaction1 = new Transaction(customer1, employee1, vehicle1, finance1);
+            employee1.addTransactionToList(transaction1, transactionList);
 
             // Print the receipt
             Receipt receipt1 = new Receipt(transaction1);
             receipt1.printReceipt();
 
-            // Employee removes this vehicle from the inventory
+            // Employee adds this vehicle to customer's purchase history and removes it from the inventory
+            employee1.addVehicleToCustomerPurchaseHistory(customer1, vehicle1);
             employee1.removeVehicleFromInventory(vehicle1, inventory);
 
             // Customer evaluates the service
             CustomerEvaluation evaluation1 = new CustomerEvaluation(employee1, 5,
                     "Excellent service!");
             evaluation1.calculateRating();
+            evaluation1.addEvaluationToMap(evaluationMap);
 
             // Print the evaluation
             EvaluationSummary feedback1 = new EvaluationSummary(transaction1, evaluation1);
@@ -79,18 +105,21 @@ public class Dealership {
 
             // Execute the transaction
             Transaction transaction2 = new Transaction(customer2, employee2, vehicle1, finance2);
+            employee2.addTransactionToList(transaction2, transactionList);
 
             // Print the receipt
             Receipt receipt2 = new Receipt(transaction2);
             receipt2.printReceipt();
 
-            // Employee removes this vehicle from the inventory
+            // Employee adds this vehicle to customer's purchase history and removes it from the inventory
+            employee2.addVehicleToCustomerPurchaseHistory(customer2, vehicle1);
             employee2.removeVehicleFromInventory(vehicle1, inventory);
 
             // Customer evaluates the service
             CustomerEvaluation evaluation2 = new CustomerEvaluation(employee2, 3,
                     "Can be better!");
             evaluation2.calculateRating();
+            evaluation2.addEvaluationToMap(evaluationMap);
 
             // Print the evaluation
             EvaluationSummary feedback2 = new EvaluationSummary(transaction2, evaluation2);
@@ -111,25 +140,32 @@ public class Dealership {
 
             // Execute the transaction
             Transaction transaction3 = new Transaction(customer3, employee2, vehicle3, finance3);
+            employee2.addTransactionToList(transaction3, transactionList);
 
             // Print the receipt
             Receipt receipt3 = new Receipt(transaction3);
             receipt3.printReceipt();
 
-            // Employee removes this vehicle from the inventory
+            // Employee adds this vehicle to customer's purchase history and removes it from the inventory
+            employee2.addVehicleToCustomerPurchaseHistory(customer3, vehicle3);
             employee2.removeVehicleFromInventory(vehicle3, inventory);
 
             // Customer evaluates the service
             CustomerEvaluation evaluation3 = new CustomerEvaluation(employee2, 5,
                     "Great service!");
             evaluation3.calculateRating();
+            evaluation3.addEvaluationToMap(evaluationMap);
 
             // Print the evaluation
             EvaluationSummary feedback3 = new EvaluationSummary(transaction3, evaluation3);
             feedback3.printFeedback();
         }
 
-        // Print the vehicles in the inventory
+        // Print the collections
         VehicleInventory.printVehicleInventory();
+        manager.printAList(employeeList);
+        manager.printAList(customerList);
+        manager.printAList(transactionList);
+        manager.printAMap(evaluationMap);
     }
 }

@@ -1,4 +1,4 @@
-package com.solvd.cardealership;
+package interfaces;
 
 public interface ITransportation {
     String getModel();

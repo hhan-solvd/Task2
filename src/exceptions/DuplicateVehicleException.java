@@ -1,4 +1,4 @@
-package com.solvd.cardealership;
+package exceptions;
 
 public class DuplicateVehicleException extends RuntimeException {
     public DuplicateVehicleException(String message) {

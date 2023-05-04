@@ -1,4 +1,8 @@
-package com.solvd.cardealership;
+package services;
+
+import people.Customer;
+import people.Employee;
+import vehicles.Vehicle;
 
 public class Transaction {
     private Customer customer;

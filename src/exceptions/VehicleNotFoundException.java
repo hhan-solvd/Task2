@@ -1,4 +1,4 @@
-package com.solvd.cardealership;
+package exceptions;
 
 public class VehicleNotFoundException extends RuntimeException {
     public VehicleNotFoundException(String message) {

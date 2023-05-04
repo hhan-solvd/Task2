@@ -1,4 +1,7 @@
-package com.solvd.cardealership;
+package vehicles;
+
+import exceptions.EmptyStringException;
+import exceptions.NegativeNumberException;
 
 public class ElectricVehicle extends Vehicle {
     protected int batteryLife; // years of battery life
