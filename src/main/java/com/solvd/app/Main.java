@@ -7,6 +7,9 @@ import org.apache.logging.log4j.Logger;
 import com.solvd.app.people.*;
 import com.solvd.app.services.*;
 import com.solvd.app.vehicles.*;
+import com.solvd.app.uniquewordscalculator.UniqueWordsCalculator;
+
+import java.io.IOException;
 
 /**
  * The Main class instantiates objects of classes from people, services, collections and
@@ -15,7 +18,7 @@ import com.solvd.app.vehicles.*;
 public class Main {
     private static final Logger LOGGER = LogManager.getLogger(Main.class);
 
-    public static void main(final String... args) throws EmptyStringException {
+    public static void main(final String... args) throws EmptyStringException, IOException {
         Manager manager = DataProvider.predefinedManagers()[0];
 
         Employee employee1 = DataProvider.predefinedEmployees()[0];
@@ -157,5 +160,9 @@ public class Main {
         dealership.displayEmployees();
         dealership.displayTransactions();
         dealership.displayEvaluations();
+
+        // Calculate unique words in a file
+        UniqueWordsCalculator.addContentsToFile(vehicle1.toString());
+        UniqueWordsCalculator.calculateUniqueWords("src/main/resources/input.txt");
     }
 }
