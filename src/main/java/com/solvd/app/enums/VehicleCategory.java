@@ -8,7 +8,7 @@ public enum VehicleCategory {
     
     private final String category;
 
-    VehicleCategory(String vehicleCategory) {
+    private VehicleCategory(String vehicleCategory) {
         category = vehicleCategory;
     }
 
