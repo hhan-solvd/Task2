@@ -1,6 +1,7 @@
 package com.solvd.app;
 
 import com.solvd.app.datasetup.*;
+import com.solvd.app.enums.*;
 import com.solvd.app.exceptions.EmptyStringException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,6 +11,8 @@ import com.solvd.app.vehicles.*;
 import com.solvd.app.uniquewordscalculator.UniqueWordsCalculator;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * The Main class instantiates objects of classes from people, services, collections and
@@ -20,17 +23,33 @@ public class Main {
 
     public static void main(final String... args) throws EmptyStringException, IOException {
         Manager manager = DataProvider.predefinedManagers()[0];
+        manager.setEmployeeTitle(EmployeeTitle.MANAGER);
+        manager.setEmployeeType(EmployeeType.FULL_TIME);
 
         Employee employee1 = DataProvider.predefinedEmployees()[0];
         Employee employee2 = DataProvider.predefinedEmployees()[1];
+        employee1.setEmployeeTitle(EmployeeTitle.SALESPERSON);
+        employee2.setEmployeeTitle(EmployeeTitle.SALESPERSON);
+        employee1.setEmployeeType(EmployeeType.PART_TIME);
+        employee2.setEmployeeType(EmployeeType.CONTRACTOR);
+
 
         Customer customer1 = DataProvider.predefinedCustomers()[0];
         Customer customer2 = DataProvider.predefinedCustomers()[1];
         Customer customer3 = DataProvider.predefinedCustomers()[2];
+        customer1.setCustomerType(CustomerType.REGULAR);
+        customer2.setCustomerType(CustomerType.VIP);
+        customer3.setCustomerType(CustomerType.REGULAR);
 
         Vehicle vehicle1 = DataProvider.predefinedVehicles()[0];
         Vehicle vehicle2 = DataProvider.predefinedVehicles()[1];
         Vehicle vehicle3 = DataProvider.predefinedVehicles()[2];
+        vehicle1.setVehicleBodyStyle(VehicleBodyStyle.SUV);
+        vehicle2.setVehicleBodyStyle(VehicleBodyStyle.SUV);
+        vehicle3.setVehicleBodyStyle(VehicleBodyStyle.SEDAN);
+        vehicle1.setVehicleCategory(VehicleCategory.ELECTRIC);
+        vehicle2.setVehicleCategory(VehicleCategory.HYBRID);
+        vehicle3.setVehicleCategory(VehicleCategory.GASOLINE);
 
         Dealership dealership = new Dealership();
         VehicleInventory inventory = new VehicleInventory();
@@ -161,8 +180,83 @@ public class Main {
         dealership.displayTransactions();
         dealership.displayEvaluations();
 
-        // Calculate unique words in a file
+        /*
+         * Calculate unique words in a file
+         */
         UniqueWordsCalculator.addContentsToFile(vehicle1.toString());
         UniqueWordsCalculator.calculateUniqueWords("src/main/resources/input.txt");
+
+        /*
+         * Usage of Lambda functions
+         */
+        // Get customers with a budget that is at least 10000.
+        // An example of using Lambda function - Predicate
+        ArrayList<Customer> filteredCustomers = dealership.filterWithPredicate(customer ->
+                customer.getBudget() >= 10000, dealership.getCustomerList());
+        dealership.printList(LOGGER::info, filteredCustomers);
+
+        // Get employees with at least 4 stars reviews.
+        // An example of using Lambda function - Predicate
+        ArrayList<Employee> filteredEmployees = dealership.filterWithPredicate(employee -> employee.getRating() >= 4,
+                dealership.getEmployeeList());
+        dealership.printList(LOGGER::info, filteredEmployees);
+
+        // Compare a customer's budget with a vehicle's price.
+        // An example of using custom generic Lambda function - IComparison
+        String result = dealership.compareWithCustomFunction((customerBudget, carPrice) -> {
+            if (customerBudget >= carPrice) {
+                return "This customer has enough cash for this vehicle.";
+            } else {
+                return "This customer does not have enough cash for this vehicle.";
+            }
+        }, customer1.getBudget(), vehicle1.getPrice());
+        LOGGER.info(result);
+
+        // Get the transactions made by employee1.
+        // An example of using Lambda function - BiPredicate
+        ArrayList<Transaction> filteredTransactions = dealership.filterWithBiPredicate((transaction, employee) ->
+                        Objects.equals(transaction.getEmployeeName(), employee.getName()), dealership.getTransactionList(),
+                employee1);
+
+        // Print a list
+        // An example of using Lambda function - Consumer
+        dealership.printList(LOGGER::info, filteredTransactions);
+
+        // Get the number of vehicles that each customer has purchased.
+        // An example of using Lambda function - Function
+        ArrayList<String> customers = dealership.getStringList((customer -> customer.getName() +
+                " bought " + customer.getPurchasedVehicles().size() + " vehicles."), dealership.getCustomerList());
+        dealership.printList(LOGGER::info, customers);
+
+        // Get transactions with employee1 as salesperson and customer1 as the customer.
+        // An example of using custom generic Lambda function - IFilter
+        ArrayList<Transaction> filteredList = dealership.filterWithCustomFunction((transaction, employee, customer) ->
+                        Objects.equals(transaction.getEmployeeName(), employee.getName()) &&
+                                Objects.equals(transaction.getCustomerName(), customer.getName())
+                , dealership.getTransactionList(), employee1, customer1);
+        dealership.printList(LOGGER::info, filteredList);
+
+        // Print info.
+        // An example of using custom generic Lambda function - IPrintInfo
+        dealership.printWithCustomFunction((vehicle, employee, customer) -> LOGGER.info("A " + vehicle.getModel() +
+                " " + vehicle.getYear() + " has been sold to " + customer.getName() + " by " +
+                employee.getName() + "!"), vehicle1, employee1, customer1);
+
+        // Print congrats message to employee1 who sold vehicle1.
+        // An example of using Lambda function - BiConsumer
+        dealership.printMessage((vehicle, employee) -> LOGGER.info("Congratulations! " + employee.getName() +
+                " has sold a " + vehicle.getModel() + " " + vehicle.getYear() + "!"), vehicle1, employee1);
+
+        /*
+         * Usage of enums
+         */
+        LOGGER.info(customer1.getName() + " is a " + customer1.getCustomerType().getType() + ".");
+        LOGGER.info(employee1.getName() + " is a " + employee1.getEmployeeTitle().getJobTitle() +
+                " with a salary of " + employee1.getEmployeeTitle().getSalary() + " who is a " +
+                employee1.getEmployeeType().getType() + " employee and works " +
+                employee1.getEmployeeType().getHours() + " hours a week.");
+        LOGGER.info(vehicle2.getModel() + " is a " + vehicle2.getVehicleCategory().getCategory() +
+                " which is a " + vehicle2.getVehicleBodyStyle().getStyle() + " with " +
+                vehicle2.getVehicleBodyStyle().getSeats() + " seats.");
     }
 }
