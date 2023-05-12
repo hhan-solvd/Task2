@@ -189,6 +189,7 @@ public class Main {
         /*
          * Usage of Lambda functions
          */
+        LOGGER.info("-------------Usage of Lambda functions----------------");
         // Get customers with a budget that is at least 10000.
         // An example of using Lambda function - Predicate
         ArrayList<Customer> filteredCustomers = dealership.filterWithPredicate(customer ->
@@ -250,6 +251,7 @@ public class Main {
         /*
          * Usage of enums
          */
+        LOGGER.info("-------------Usage of enums----------------");
         LOGGER.info(customer1.getName() + " is a " + customer1.getCustomerType().getType() + ".");
         LOGGER.info(employee1.getName() + " is a " + employee1.getEmployeeTitle().getJobTitle() +
                 " with a salary of " + employee1.getEmployeeTitle().getSalary() + " who is a " +
