@@ -1,11 +1,10 @@
 package com.solvd.app.people;
 
+import com.solvd.app.enums.EmployeeTitle;
+import com.solvd.app.enums.EmployeeType;
+import com.solvd.app.exceptions.*;
 import com.solvd.app.interfaces.IPerson;
 import com.solvd.app.interfaces.IWorker;
-import com.solvd.app.exceptions.EmptyStringException;
-import com.solvd.app.exceptions.NegativeNumberException;
-import com.solvd.app.exceptions.DuplicateVehicleException;
-import com.solvd.app.exceptions.VehicleNotFoundException;
 import com.solvd.app.vehicles.Vehicle;
 import com.solvd.app.vehicles.VehicleInventory;
 import com.solvd.app.services.Transaction;
@@ -21,6 +20,8 @@ public class Employee implements IPerson, IWorker {
     private int id;
     private double overallRating = 0; // tbe employee's overall rating with 0 to 5
     private int ratingCounter = 0;    // times that the employee has been rated
+    private EmployeeTitle employeeTitle;
+    private EmployeeType employeeType;
 
     public Employee(String employeeName, int employeeId) throws EmptyStringException {
         if (employeeName.isEmpty()) {
@@ -45,6 +46,22 @@ public class Employee implements IPerson, IWorker {
 
     public double getRating() {
         return overallRating;
+    }
+
+    public EmployeeTitle getEmployeeTitle() {
+        return employeeTitle;
+    }
+
+    public void setEmployeeTitle(EmployeeTitle title) {
+        employeeTitle = title;
+    }
+
+    public EmployeeType getEmployeeType() {
+        return employeeType;
+    }
+
+    public void setEmployeeType(EmployeeType type) {
+        employeeType = type;
     }
 
     public void setRating(double employeeRating) {
@@ -122,6 +139,8 @@ public class Employee implements IPerson, IWorker {
         return "Employee{" +
                 "name='" + name + '\'' +
                 ", id=" + id +
+                ", title=" + employeeTitle +
+                ", type=" + employeeType +
                 ", overallRating=" + overallRating +
                 ", ratingCounter=" + ratingCounter +
                 '}';
