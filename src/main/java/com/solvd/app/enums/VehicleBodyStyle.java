@@ -1,6 +1,7 @@
 package com.solvd.app.enums;
 
 public enum VehicleBodyStyle {
+
     COUPE("Coupe", 2),
     SEDAN("Sedan", 4),
     SUV("SUV", 5);
@@ -8,7 +9,7 @@ public enum VehicleBodyStyle {
     private final String style;
     private final int seats;
 
-    VehicleBodyStyle(String vehicleName, int numberOfSeats) {
+    private VehicleBodyStyle(String vehicleName, int numberOfSeats) {
         style = vehicleName;
         seats = numberOfSeats;
     }
