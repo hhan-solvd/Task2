@@ -1,6 +1,7 @@
 package com.solvd.app.enums;
 
 public enum EmployeeType {
+
     FULL_TIME("Full-time", 40),
     PART_TIME("Part-time", 20),
     CONTRACTOR("Contractor", 0);
@@ -8,7 +9,7 @@ public enum EmployeeType {
     private final String type;
     private final int hours;
 
-    EmployeeType(String jobType, int workHours) {
+    private EmployeeType(String jobType, int workHours) {
         type = jobType;
         hours = workHours;
     }
