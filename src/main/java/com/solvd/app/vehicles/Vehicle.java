@@ -1,5 +1,7 @@
 package com.solvd.app.vehicles;
 
+import com.solvd.app.enums.VehicleBodyStyle;
+import com.solvd.app.enums.VehicleCategory;
 import com.solvd.app.interfaces.ITransportation;
 import com.solvd.app.exceptions.EmptyStringException;
 import com.solvd.app.exceptions.NegativeNumberException;
@@ -11,6 +13,8 @@ public abstract class Vehicle implements ITransportation {
     protected String color;
     protected int year;
     protected double price;
+    protected VehicleBodyStyle vehicleBodyStyle;
+    protected VehicleCategory vehicleCategory;
 
     public Vehicle(String vehicleModel, String vehicleColor,
                    int vehicleYear, double vehiclePrice) throws EmptyStringException {
@@ -53,6 +57,22 @@ public abstract class Vehicle implements ITransportation {
 
     protected abstract String getOtherInfo();
 
+    public VehicleBodyStyle getVehicleBodyStyle() {
+        return vehicleBodyStyle;
+    }
+
+    public void setVehicleBodyStyle(VehicleBodyStyle type) {
+        vehicleBodyStyle = type;
+    }
+
+    public VehicleCategory getVehicleCategory() {
+        return vehicleCategory;
+    }
+
+    public void setVehicleCategory(VehicleCategory category) {
+        vehicleCategory = category;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,6 +95,8 @@ public abstract class Vehicle implements ITransportation {
                 ", color='" + color + '\'' +
                 ", year=" + year +
                 ", price=" + price +
+                ", type=" + vehicleBodyStyle +
+                ", category=" + vehicleCategory +
                 ", " + getOtherInfo() +
                 '}';
     }

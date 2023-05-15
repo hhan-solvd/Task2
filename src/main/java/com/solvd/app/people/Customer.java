@@ -1,5 +1,6 @@
 package com.solvd.app.people;
 
+import com.solvd.app.enums.CustomerType;
 import com.solvd.app.interfaces.IPerson;
 import com.solvd.app.vehicles.Vehicle;
 import com.solvd.app.exceptions.EmptyStringException;
@@ -13,6 +14,7 @@ public class Customer implements IPerson {
     private String name;
     private int phone;
     private double budget;
+    private CustomerType type;
 
     public Customer(String customerName, int customerPhone, double customerBudget)
             throws EmptyStringException {
@@ -49,6 +51,18 @@ public class Customer implements IPerson {
         purchasedVehicles.add(vehicle);
     }
 
+    public ArrayList<Vehicle> getPurchasedVehicles() {
+        return purchasedVehicles;
+    }
+
+    public CustomerType getCustomerType() {
+        return type;
+    }
+
+    public void setCustomerType(CustomerType customerType) {
+        type = customerType;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -69,6 +83,7 @@ public class Customer implements IPerson {
                 "name='" + name + '\'' +
                 ", phone=" + phone +
                 ", budget=" + budget +
+                ", type=" + type +
                 '}';
     }
 }
