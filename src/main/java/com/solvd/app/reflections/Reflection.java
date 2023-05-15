@@ -24,7 +24,7 @@ public class Reflection {
         LOGGER.info("-------------Constructor List----------------");
         Constructor<?>[] constructors = className.getDeclaredConstructors();
         for (Constructor<?> constructor : constructors) {
-            System.out.println("Constructor: " + constructor.getName() +
+            LOGGER.info("Constructor: " + constructor.getName() +
                     ", Number of parameters: " + constructor.getParameterCount() +
                     ", Modifiers: " + Modifier.toString(constructor.getModifiers()));
         }
@@ -35,7 +35,7 @@ public class Reflection {
         LOGGER.info("-------------Method List----------------");
         Method[] methods = className.getDeclaredMethods();
         for (Method method : methods) {
-            System.out.println("Method: " + method.getName() +
+            LOGGER.info("Method: " + method.getName() +
                     ", Return type: " + method.getReturnType() +
                     ", Number of parameters: " + method.getParameterCount() +
                     ", Modifiers: " + Modifier.toString(method.getModifiers()));
