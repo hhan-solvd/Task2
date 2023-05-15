@@ -1,5 +1,6 @@
 package com.solvd.app.services;
 
+import com.solvd.app.enums.PaymentMethod;
 import com.solvd.app.interfaces.IPaymentMethod;
 import com.solvd.app.people.Customer;
 import com.solvd.app.vehicles.Vehicle;
@@ -27,11 +28,11 @@ public class Finance implements IPaymentMethod {
     // Check if a customer needs to finance
     public void determinePaymentMethod() {
         if (customer.getBudget() < vehicle.getPrice()) {
-            paymentMethod = "Finance";
+            paymentMethod = PaymentMethod.FINANCE.getPaymentMethod();
             needFinance = true;
             loanAmount = vehicle.getPrice() - customer.getBudget();
         } else {
-            paymentMethod = "Pay in Full";
+            paymentMethod = PaymentMethod.PAY_IN_FULL.getPaymentMethod();
         }
     }
 
