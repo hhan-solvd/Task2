@@ -3,7 +3,7 @@ package com.solvd.app;
 import com.solvd.app.datasetup.*;
 import com.solvd.app.enums.*;
 import com.solvd.app.exceptions.EmptyStringException;
-import com.solvd.app.reflections.Reflection;
+import com.solvd.app.reflections.ReflectionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.solvd.app.people.*;
@@ -282,9 +282,9 @@ public class Main {
          */
         LOGGER.info("-------------Usage of reflection----------------");
         Class<?> customerClass = Class.forName("com.solvd.app.people.Customer");
-        Reflection.printFields(customerClass);
-        Reflection.printConstructors(customerClass);
-        Reflection.printMethods(customerClass);
+        ReflectionUtils.printFields(customerClass);
+        ReflectionUtils.printConstructors(customerClass);
+        ReflectionUtils.printMethods(customerClass);
 
         // Create an object and verify it
         Constructor<?> constructor = customerClass.getConstructor(String.class, int.class, double.class);
@@ -313,7 +313,7 @@ public class Main {
         Field phoneNumber = customerClass.getDeclaredField("phone");
         phoneNumber.setAccessible(true);
         phoneNumber.setInt(newCustomer, 7890);
-        
+
         LOGGER.info(newCustomer);
     }
 }
