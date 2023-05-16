@@ -1,5 +1,6 @@
 package com.solvd.app.services;
 
+import com.solvd.app.enums.PaymentMethod;
 import com.solvd.app.interfaces.IPaymentMethod;
 import com.solvd.app.people.Customer;
 import com.solvd.app.vehicles.Vehicle;
@@ -7,7 +8,7 @@ import com.solvd.app.vehicles.Vehicle;
 public class Finance implements IPaymentMethod {
     private Customer customer;
     private Vehicle vehicle;
-    private String paymentMethod;
+    private PaymentMethod paymentMethod;
     private boolean needFinance = false; // if the customer needs to finance
     private double loanAmount = 0;
 
@@ -17,7 +18,7 @@ public class Finance implements IPaymentMethod {
     }
 
     public String getPaymentMethod() {
-        return paymentMethod;
+        return paymentMethod.getPaymentMethod();
     }
 
     public double getLoanAmount() {
@@ -27,11 +28,11 @@ public class Finance implements IPaymentMethod {
     // Check if a customer needs to finance
     public void determinePaymentMethod() {
         if (customer.getBudget() < vehicle.getPrice()) {
-            paymentMethod = "Finance";
+            paymentMethod = PaymentMethod.FINANCE;
             needFinance = true;
             loanAmount = vehicle.getPrice() - customer.getBudget();
         } else {
-            paymentMethod = "Pay in Full";
+            paymentMethod = PaymentMethod.PAY_IN_FULL;
         }
     }
 

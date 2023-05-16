@@ -3,6 +3,7 @@ package com.solvd.app;
 import com.solvd.app.datasetup.*;
 import com.solvd.app.enums.*;
 import com.solvd.app.exceptions.EmptyStringException;
+import com.solvd.app.reflections.ReflectionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.solvd.app.people.*;
@@ -13,6 +14,7 @@ import com.solvd.app.uniquewordscalculator.UniqueWordsCalculator;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.lang.reflect.*;
 
 /**
  * The Main class instantiates objects of classes from people, services, collections and
@@ -21,7 +23,8 @@ import java.util.Objects;
 public class Main {
     private static final Logger LOGGER = LogManager.getLogger(Main.class);
 
-    public static void main(final String... args) throws EmptyStringException, IOException {
+    public static void main(final String... args) throws EmptyStringException, IOException, ClassNotFoundException,
+            NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchFieldException {
         Manager manager = DataProvider.predefinedManagers()[0];
         manager.setEmployeeTitle(EmployeeTitle.MANAGER);
         manager.setEmployeeType(EmployeeType.FULL_TIME);
@@ -260,5 +263,57 @@ public class Main {
         LOGGER.info(vehicle2.getModel() + " is a " + vehicle2.getVehicleCategory().getCategory() +
                 " which is a " + vehicle2.getVehicleBodyStyle().getStyle() + " with " +
                 vehicle2.getVehicleBodyStyle().getSeats() + " seats.");
+
+        /*
+         * Usage of stream
+         */
+        LOGGER.info("-------------Usage of stream----------------");
+        LOGGER.info(dealership.getAllEmployeeNames());
+        LOGGER.info(dealership.getFiveStarsEmployees());
+        LOGGER.info(dealership.getVIPCustomers());
+        dealership.sortCustomersWithBudget();
+        LOGGER.info(dealership.getCustomerAverageBudget());
+        LOGGER.info(dealership.getMostExpensiveVehicleSold());
+        LOGGER.info(dealership.getEmployeeTransactionNumber(employee1));
+        LOGGER.info(dealership.getTotalTransactionAmount());
+
+        /*
+         * Usage of reflection
+         */
+        LOGGER.info("-------------Usage of reflection----------------");
+        Class<?> customerClass = Class.forName("com.solvd.app.people.Customer");
+        ReflectionUtils.printFields(customerClass);
+        ReflectionUtils.printConstructors(customerClass);
+        ReflectionUtils.printMethods(customerClass);
+
+        // Create an object and verify it
+        Constructor<?> constructor = customerClass.getConstructor(String.class, int.class, double.class);
+        Object newCustomer = constructor.newInstance("Becky", 1358, 5000);
+
+        Method setCustomerTypeMethod = customerClass.getMethod("setCustomerType", CustomerType.class);
+        setCustomerTypeMethod.invoke(newCustomer, CustomerType.VIP);
+
+        Method setPurchasedVehiclesMethod = customerClass.getMethod("setPurchasedVehicles", Vehicle.class);
+        setPurchasedVehiclesMethod.invoke(newCustomer, vehicle2);
+
+        LOGGER.info(newCustomer instanceof Customer);
+        LOGGER.info(newCustomer);
+
+        // Get customer's budget by calling the getBudget method
+        Method getBudgetMethod = customerClass.getMethod("getBudget");
+        Object budget = getBudgetMethod.invoke(newCustomer);
+        LOGGER.info("Customer's Budget: " + budget);
+
+        // Get customer's purchasedVehicles by calling the getPurchasedVehicles method
+        Method getPurchasedVehiclesMethod = customerClass.getMethod("getPurchasedVehicles");
+        Object vehicles = getPurchasedVehiclesMethod.invoke(newCustomer);
+        LOGGER.info("Customer's vehicles purchased: " + vehicles);
+
+        // Change the value of the phone field
+        Field phoneNumber = customerClass.getDeclaredField("phone");
+        phoneNumber.setAccessible(true);
+        phoneNumber.setInt(newCustomer, 7890);
+
+        LOGGER.info(newCustomer);
     }
 }

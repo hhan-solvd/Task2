@@ -9,9 +9,9 @@ import com.solvd.app.people.Employee;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.function.*;
+import java.util.stream.Collectors;
 
 public class Dealership {
     private static final Logger LOGGER = LogManager.getLogger(Dealership.class);
@@ -110,6 +110,53 @@ public class Dealership {
     // Compare two items with custom generic Lambda function - IComparison
     public <T, U> String compareWithCustomFunction(IComparison<T, U, String> sumList, T t, U u) {
         return sumList.compare(t, u);
+    }
+
+    public List<String> getAllEmployeeNames() {
+        return employeeList.stream()
+                .map(Employee::getName)
+                .toList();
+    }
+
+    public List<Employee> getFiveStarsEmployees() {
+        return employeeList.stream()
+                .filter((Employee employee) -> (employee.getRating() == 5))
+                .collect(Collectors.toList());
+    }
+
+    public List<Customer> getVIPCustomers() {
+        return customerList.stream()
+                .filter((Customer customer) -> (customer.getCustomerType().getType().equals("VIP Customers")))
+                .collect(Collectors.toList());
+    }
+
+    public void sortCustomersWithBudget() {
+        customerList.stream()
+                .sorted(Comparator.comparingDouble(Customer::getBudget))
+                .forEach(LOGGER::info);
+    }
+
+    public double getCustomerAverageBudget() {
+        return customerList.stream()
+                .mapToDouble(Customer::getBudget).average().getAsDouble();
+    }
+
+    public double getMostExpensiveVehicleSold() {
+        return transactionList.stream()
+                .max(Comparator.comparing(Transaction::getVehiclePrice))
+                .get().getVehiclePrice();
+    }
+
+    // Get the number of transactions made by an employee
+    public int getEmployeeTransactionNumber(Employee employee) {
+        return (int) transactionList.stream()
+                .filter(transaction -> transaction.getEmployeeName().equals(employee.getName()))
+                .count();
+    }
+
+    public Integer getTotalTransactionAmount() {
+        return transactionList.stream()
+                .mapToInt(transaction -> (int) transaction.getVehiclePrice()).sum();
     }
 
     public void displayCustomers() {
