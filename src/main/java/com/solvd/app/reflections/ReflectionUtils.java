@@ -5,8 +5,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.*;
 
-public class Reflection {
-    private static final Logger LOGGER = LogManager.getLogger(Reflection.class);
+public class ReflectionUtils {
+    private static final Logger LOGGER = LogManager.getLogger(ReflectionUtils.class);
 
     // Get and print the names, types and modifiers of fields
     public static void printFields(Class<?> className) {
