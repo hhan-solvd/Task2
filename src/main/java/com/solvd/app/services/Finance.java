@@ -28,7 +28,7 @@ public class Finance implements IPaymentMethod {
     // Check if a customer needs to finance
     public void determinePaymentMethod() {
         if (customer.getBudget() < vehicle.getPrice()) {
-            paymentMethod = PaymentMethod.FINANCE.getPaymentMethod();
+            paymentMethod = PaymentMethod.FINANCE;
             needFinance = true;
             loanAmount = vehicle.getPrice() - customer.getBudget();
         } else {
