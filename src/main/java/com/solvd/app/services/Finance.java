@@ -8,7 +8,7 @@ import com.solvd.app.vehicles.Vehicle;
 public class Finance implements IPaymentMethod {
     private Customer customer;
     private Vehicle vehicle;
-    private String paymentMethod;
+    private PaymentMethod paymentMethod;
     private boolean needFinance = false; // if the customer needs to finance
     private double loanAmount = 0;
 
@@ -18,7 +18,7 @@ public class Finance implements IPaymentMethod {
     }
 
     public String getPaymentMethod() {
-        return paymentMethod;
+        return paymentMethod.getPaymentMethod();
     }
 
     public double getLoanAmount() {
@@ -32,7 +32,7 @@ public class Finance implements IPaymentMethod {
             needFinance = true;
             loanAmount = vehicle.getPrice() - customer.getBudget();
         } else {
-            paymentMethod = PaymentMethod.PAY_IN_FULL.getPaymentMethod();
+            paymentMethod = PaymentMethod.PAY_IN_FULL;
         }
     }
 
