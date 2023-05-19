@@ -4,7 +4,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class ConnectionPool {
-    private static ConnectionPool connection = null;
+    private static ConnectionPool instance = null;
     private final BlockingQueue<Connection> pool = new LinkedBlockingQueue<>();
     private static final int SIZE = 5;
 
@@ -15,19 +15,19 @@ public class ConnectionPool {
     }
 
     // The pool is lazy initialized.
-    public static synchronized ConnectionPool getConnection() {
-        if (connection == null) {
-            connection = new ConnectionPool();
+    public static synchronized ConnectionPool getInstance() {
+        if (instance == null) {
+            instance = new ConnectionPool();
         }
 
-        return connection;
+        return instance;
     }
 
-    public void removeConnection(Connection connection) {
+    public void releaseConnection(Connection connection) {
         pool.offer(connection);
     }
 
-    public Connection addConnection() throws InterruptedException {
+    public Connection getConnection() throws InterruptedException {
         return pool.take();
     }
 }
