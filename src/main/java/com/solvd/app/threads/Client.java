@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 
 public class Client {
     private static final int COUNT = 7;
-    static ConnectionPool connectionPool = ConnectionPool.getConnection();
+    static ConnectionPool connectionPool = ConnectionPool.getInstance();
     static ExecutorService executorService = Executors.newFixedThreadPool(COUNT);
 
     public static void connect() {
@@ -16,12 +16,12 @@ public class Client {
         for (int i = 0; i < COUNT; i++) {
             CompletableFuture<Void> completableFuture = CompletableFuture.runAsync(() -> {
                 try {
-                    Connection connection = connectionPool.addConnection();
+                    Connection connection = connectionPool.getConnection();
                     String threadName = Thread.currentThread().getName();
                     connection.connect(threadName);
                     Thread.sleep(3000);
                     connection.disconnect(threadName);
-                    connectionPool.removeConnection(connection);
+                    connectionPool.releaseConnection(connection);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
