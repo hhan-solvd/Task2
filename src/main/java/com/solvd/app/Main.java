@@ -4,6 +4,9 @@ import com.solvd.app.datasetup.*;
 import com.solvd.app.enums.*;
 import com.solvd.app.exceptions.EmptyStringException;
 import com.solvd.app.reflections.ReflectionUtils;
+import com.solvd.app.threads.Client;
+import com.solvd.app.threads.ExtendingThread;
+import com.solvd.app.threads.RunnableThread;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.solvd.app.people.*;
@@ -315,5 +318,16 @@ public class Main {
         phoneNumber.setInt(newCustomer, 7890);
 
         LOGGER.info(newCustomer);
+
+        /*
+         * Usage of threads
+         */
+        LOGGER.info("-------------Usage of threads----------------");
+        Thread thread1 = new Thread(new RunnableThread());
+        thread1.start();
+        ExtendingThread thread2 = new ExtendingThread();
+        thread2.start();
+
+        Client.connect();
     }
 }
